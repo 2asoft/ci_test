@@ -1,0 +1,22 @@
+# Copyright (c) 2019-2020 Luca Cappa
+# Released under the term specified in file LICENSE.txt
+# SPDX short identifier: MIT
+name: hosted-wasm-macos-linux
+on: [push, pull_request]
+
+jobs:
+  ubuntu_native_hosted:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: install packages
+        run: |
+          sudo apt-get update -m && sudo apt-get install build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386
+        shell: bash
+      - name: Build Linux native executable
+        uses: lukka/run-cmake@v0
+        with:
+          cmakeListsOrSettingsJson: CMakeSettingsJson
+          configurationRegexFilter: 'Linux-Release'
