@@ -39,7 +39,7 @@ jobs:
         shell: bash
 
       - name: Restore artifacts, or run vcpkg, build and cache artifacts
-        uses: lukka/run-vcpkg@v3.0
+        uses: lukka/run-vcpkg@v3
         id: runvcpkg
         with:
           vcpkgArguments: '${{ matrix.vcpkgPackages }}'
@@ -55,10 +55,10 @@ jobs:
         run: echo "'${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}' '${{  steps.runvcpkg.outputs.RUNVCPKG_VCPKG_TRIPLET_OUT }}' "
 
       - name: Run CMake+gmake without triplet
-        uses: lukka/run-cmake@v2.5
+        uses: lukka/run-cmake@v2
         id: runcmake
         with:
-          cmakeGenerator: 'Unix Makefiles'  
+          cmakeGenerator: 'UnixMakefiles'
           cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
           cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
           useVcpkgToolchainFile: true
