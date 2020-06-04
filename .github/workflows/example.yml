@@ -10,11 +10,6 @@ jobs:
       matrix:
         config:
           - {
-            name: "Ubuntu 18.04-LTS",
-            os: ubuntu-18.04,
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
-            }
-          - {
             name: "Ubuntu 20.04-LTS",
             os: ubuntu-20.04,
             packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
