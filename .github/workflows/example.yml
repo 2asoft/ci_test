@@ -19,29 +19,19 @@ jobs:
             os: ubuntu-20.04,
             packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
             }
-          #- os: windows-latest
-          #- os: macos-latest
 
     steps:
       - uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           submodules: true
 
-      #- name: Install dependencies
-      #  run: sudo apt-get update -m && sudo apt-get install build-essentials g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386
-      #  shell: bash
-
       - uses: lukka/get-cmake@latest
-
-      - name: dir
-        run: find $RUNNER_WORKSPACE
-        shell: bash
 
       - name: Install dependencies
         run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
 
-
-      - name: Run CMake+gmake without triplet
+      - name: Run CMake+gmake
         uses: lukka/run-cmake@v2
         id: runcmake
         with:
