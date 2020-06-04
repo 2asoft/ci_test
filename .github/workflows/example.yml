@@ -13,7 +13,7 @@ jobs:
           - os: ubuntu-latest
             triplet: x64-linux
             vcpkgCommitId: '2020.04'
-            vcpkgPackages: 'sdl2 openal-soft'
+            vcpkgPackages: 'sdl2:x86 openal-soft:x86'
           - os: windows-latest
             triplet: x64-windows
             vcpkgCommitId: '2020.04'
