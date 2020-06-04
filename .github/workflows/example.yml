@@ -2,26 +2,25 @@ name: ci
 on: [push]
 
 jobs:
-  job:
-    name: ${{ matrix.os }}-hosted-basic
-    runs-on: ${{ matrix.os }}
+  ubuntu:
+    name: ${{ matrix.config.name }}-hosted-basic
+    runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]#, macos-latest]
-        include:
-          - os: ubuntu-latest
-            triplet: x86-linux
-            vcpkgCommitId: '2020.04'
-            vcpkgPackages: 'sdl2 openal-soft'
-          - os: windows-latest
-            triplet: x86-windows
-            vcpkgCommitId: '2020.04'
-            vcpkgPackages: 'sdl2'
+        config:
+          - {
+            name: "Ubuntu 18.04-LTS",
+            os: ubuntu-18.04,
+            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
+            }
+          - {
+            name: "Ubuntu 20.04-LTS",
+            os: ubuntu-20.04,
+            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev libopenal-dev libsdl2-2.0-0:i386 libopenal1:i386 libgl1:i386"
+            }
+          #- os: windows-latest
           #- os: macos-latest
-          #  triplet: x64-osx
-          #  vcpkgCommitId: '2020.04'
-          #  vcpkgPackages: 'sqlite3'
 
     steps:
       - uses: actions/checkout@v2
@@ -38,21 +37,9 @@ jobs:
         run: find $RUNNER_WORKSPACE
         shell: bash
 
-      - name: Restore artifacts, or run vcpkg, build and cache artifacts
-        uses: lukka/run-vcpkg@v3
-        id: runvcpkg
-        with:
-          vcpkgArguments: '${{ matrix.vcpkgPackages }}'
-          vcpkgTriplet: '${{ matrix.triplet }}'
-          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
-          vcpkgGitCommitId: '${{ matrix.vcpkgCommitId }}'
+      - name: Install dependencies
+        run: sudo dpkg --add-architecture i386 && sudo apt-get update -m && sudo apt-get install -y ${{ matrix.config.packages }}
 
-      - name: dir
-        run: find $RUNNER_WORKSPACE
-        shell: bash
-
-      - name: Prints outputs of run-vcpkg task
-        run: echo "'${{ steps.runvcpkg.outputs.RUNVCPKG_VCPKG_ROOT_OUT }}' '${{  steps.runvcpkg.outputs.RUNVCPKG_VCPKG_TRIPLET_OUT }}' "
 
       - name: Run CMake+gmake without triplet
         uses: lukka/run-cmake@v2
@@ -61,6 +48,5 @@ jobs:
           cmakeGenerator: 'UnixMakefiles'
           cmakeListsOrSettingsJson: 'CMakeListsTxtBasic'
           cmakeListsTxtPath: '${{ github.workspace }}/src/CMakeLists.txt'
-          useVcpkgToolchainFile: true
           buildWithCMakeArgs: '-- -v'
           buildDirectory: '${{ runner.workspace }}/b/gmake/'
