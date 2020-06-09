@@ -38,9 +38,10 @@ add_executable (
 
     main.cpp
 )
+FIND_PACKAGE(SDL2 REQUIRED)
 target_link_libraries (
     out
-#    SDL2
+    ${SDL2_LIBRARIES}
     "${OPENAL_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"

@@ -49,7 +49,7 @@ jobs:
             vcpkg: {
               triplet: x86-windows,
               commitId: '2020.04',
-              packages: "sdl2"
+              packages: "openal-soft sdl2 glew"
             }
             }
 
