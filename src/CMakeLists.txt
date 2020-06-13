@@ -38,7 +38,7 @@ add_executable (
 
     main.cpp
 )
-FIND_PACKAGE(SDL2 REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
 target_link_libraries (
     out
     ${SDL2_LIBRARIES}
