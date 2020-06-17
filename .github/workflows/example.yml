@@ -47,6 +47,8 @@ jobs:
           cd ${{github.workspace}}/build
           cmake ../src
           make
+        env:
+          MAKEFLAGS: "-j2"
 
       - name: Print ccache statistics
         run: ccache -s
