@@ -38,8 +38,12 @@ add_executable (
 
     main.cpp
 )
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(SDL2 REQUIRED sdl2 )
+if( MSVC )
+    find_package(SDL2 CONFIG REQUIRED)
+else()
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(SDL2 REQUIRED sdl2 )
+endif()
 target_include_directories(out PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries (
     out
