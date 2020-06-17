@@ -35,6 +35,7 @@ jobs:
 
       - name: Set ccache settings
         run: |
+          /usr/sbin/update-ccache-symlinks
           echo "::set-env name=CCACHE_BASEDIR::${{github.workspace}}"
           echo "::set-env name=CCACHE_DIR::${{github.workspace}}/ccache"
           echo "::set-env name=CCACHE_MAXSIZE::2G"
