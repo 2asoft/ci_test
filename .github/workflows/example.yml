@@ -68,7 +68,7 @@ jobs:
             vcpkg: {
               triplet: x86-windows,
               commitId: '2020.04',
-              packages: "openal-soft sdl2 glew"
+              responseFile: 'vcpkg.txt'
             }
             }
 
@@ -84,10 +84,11 @@ jobs:
         uses: lukka/run-vcpkg@v3
         id: runvcpkg
         with:
-          vcpkgArguments: '${{ matrix.config.vcpkg.packages }}'
+          vcpkgArguments: '@${{ matrix.config.vcpkg.responseFile }}'
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
+          appendedCacheKey: '${{ hashFiles( matrix.config.vcpkg.responseFile ) }}'
 
       - name: Run CMake+gmake
         uses: lukka/run-cmake@v2

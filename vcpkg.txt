@@ -1,0 +1,5 @@
+--triplet
+openal-soft
+sdl2
+glew
+opengl
