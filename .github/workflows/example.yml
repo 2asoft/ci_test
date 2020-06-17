@@ -12,7 +12,7 @@ jobs:
           - {
             name: "Ubuntu 20.04-LTS",
             os: ubuntu-20.04,
-            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib"
+            packages: "build-essential ccache cmake g++ gcc g++-multilib gcc-multilib libsdl2-dev:i386"
             }
 
     steps:
