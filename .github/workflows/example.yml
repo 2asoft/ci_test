@@ -43,6 +43,7 @@ jobs:
 
       - name: Build
         run: |
+          export PATH="/usr/lib/ccache:$PATH"
           mkdir -p "${{github.workspace}}/build"
           cd ${{github.workspace}}/build
           cmake ../src
