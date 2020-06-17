@@ -39,7 +39,8 @@ add_executable (
     main.cpp
 )
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(SDL2 REQUIRED sdl2 SDL2_ttf SDL2_mixer SDL2_image)
+pkg_check_modules(SDL2 REQUIRED sdl2 )
+target_include_directories(out PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries (
     out
     ${SDL2_LIBRARIES}
