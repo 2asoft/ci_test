@@ -83,7 +83,7 @@ jobs:
       - name: Cache vcpkg artifacts
         uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}/vcpkg/
+          path: ${{ runner.workspace }}/b/vcpkg/
           # Ensure the cache is invalidated any time vcpkg version changes, or a different set of packages is being used.
           key: ${{ matrix.config.name }}-vcpkg-${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
           restore-keys: |
