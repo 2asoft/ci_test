@@ -39,7 +39,14 @@ add_executable (
     main.cpp
 )
 if( MSVC )
-    find_package(SDL2 CONFIG REQUIRED)
+    find_library (SDL2_LIBRARIES SDL2.lib)
+    find_library (OPENAL_LIBRARIES OpenAL32.lib)
+    find_library (GLEW_LIBRARIES glew32.lib)
+    find_library (OPENGL_LIBRARIES OpenGL32.lib)
+
+    find_path(SDL_INCLUDE_DIRS SDL2/SDL.h)
+    find_path(GLEW_INCLUDE_DIRS GL/glew.h)
+    find_path(OPENAL_INCLUDE_DIRS AL/al.h)
 else()
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(SDL2 REQUIRED sdl2 )
@@ -48,6 +55,7 @@ target_include_directories(out PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries (
     out
     ${SDL2_LIBRARIES}
+    ${GLEW_LIBRARIES}
     "${OPENAL_LIBRARIES}"
     "${OPENGL_LIBRARIES}"
     "${PTHREAD_LIBRARIES}"
