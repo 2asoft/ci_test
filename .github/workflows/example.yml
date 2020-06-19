@@ -80,18 +80,6 @@ jobs:
 
       - uses: lukka/get-cmake@latest
 
-      - name: Cache vcpkg artifacts
-        uses: actions/cache@v2
-        id: vcpkgcache
-        with:
-          path: ${{ runner.workspace }}/b/vcpkg/
-          # Ensure the cache is invalidated any time vcpkg version changes, or a different set of packages is being used.
-          key: ${{ matrix.config.name }}-vcpkg-${{ matrix.config.vcpkg.triplet }}-${{ matrix.config.vcpkg.commitId }}-${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
-          restore-keys: |
-            ${{ matrix.config.name }}-vcpkg-${{ matrix.config.vcpkg.triplet }}-${{ matrix.config.vcpkg.commitId }}-
-            ${{ matrix.config.name }}-vcpkg-${{ matrix.config.vcpkg.triplet }}-
-            ${{ matrix.config.name }}-vcpkg-
-
       - name: Restore artifacts, or run vcpkg, build and cache artifacts
         if: steps.vcpkgcache.outputs.cache-hit != 'true'
         uses: lukka/run-vcpkg@v3
@@ -101,6 +89,7 @@ jobs:
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
+          appendedCacheKey: ${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
 
       - name: Run CMake+gmake
         uses: lukka/run-cmake@v2
