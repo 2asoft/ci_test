@@ -1,7 +1,7 @@
 #include <iostream>
 
-void foof(int i, int j, int k, int lmnop, int kldjfghdskfjlghdfkjggdjlfkhgdfk, int foo, int bar, int baz, double triple,
-		  float ing) {
+void foobarbazthisisanamethatneverends(int i, int j, int k, int lmnop, int kldjfghdskfjlghdfkjggdjlfkhgdfk, int foo,
+									   int bar, int baz, double triple, float ing) {
 	if (i == 42) {
 		std::cout << 1 << std::endl;
 	} else {
