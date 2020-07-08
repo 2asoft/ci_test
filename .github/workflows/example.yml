@@ -87,7 +87,6 @@ jobs:
         with:
           vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
-          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
           appendedCacheKey: ${{ hashFiles( format('{0}/{1}', github.workspace, matrix.config.vcpkg.responseFile )) }}
 
