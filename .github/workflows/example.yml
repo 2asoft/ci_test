@@ -85,6 +85,7 @@ jobs:
         uses: lukka/run-vcpkg@v3
         id: runvcpkg
         with:
+          doNotUpdateVcpkg: 'true'
           vcpkgArguments: '@${{ github.workspace }}/${{ matrix.config.vcpkg.responseFile }}'
           vcpkgTriplet: '${{ matrix.config.vcpkg.triplet }}'
           vcpkgGitCommitId: '${{ matrix.config.vcpkg.commitId }}'
