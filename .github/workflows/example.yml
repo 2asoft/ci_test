@@ -67,7 +67,7 @@ jobs:
             os: windows-2019,
             vcpkg: {
               triplet: x86-windows,
-              commitId: '2020.04',
+              commitId: 'c7ab9d3110813979a873b2dbac630a9ab79850dc',
               responseFile: 'vcpkg.txt'
             }
             }
